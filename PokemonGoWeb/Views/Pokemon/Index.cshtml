@@ -1,0 +1,80 @@
+﻿@model IEnumerable<PokemonGOWeb.Models.PokemonViewModel>
+@{
+    ViewBag.Title = "Pokémons";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<h2>Pokémons</h2>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnCreate').click(function () {
+
+            // window.location.reload();
+        });
+
+        $('.glyphicon').click(function (event) {
+
+            var id = $(this).attr('data-id');
+
+            $.ajax({
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                url: '@Url.Content("Pokemon/Capture")',
+                data: "{'id':'" + id + "'}",
+                async: false,
+                success: function (response) {
+                    var obj = $.parseJSON(JSON.stringify(response));
+                    if (obj.result) {
+
+                        $(this).removeClass("glyphicon-unchecked");
+                        $(this).addClass("glyphicon-check");
+                    } else {
+                        $(this).addClass("glyphicon-unchecked");
+                        $(this).removeClass("glyphicon-check");
+                    }
+                    alert("Success");
+                },
+
+                error: function () { alert("error"); }
+            });
+        });
+
+        $('#Button1').click(function () {
+
+            $.ajax({
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                url: '@Url.Content("Pokemon/Index")',
+                data: "{'searchString':'" + document.getElementById('searchString').value + "'}",
+
+                success: function (response) {
+                    alert("Success");
+                    $("#PartialView").html(response);
+
+                },
+                error: function () { alert("error"); }
+            });
+
+        });
+    });
+
+
+</script>
+
+<div class="row">
+    <div class="col-lg-3">
+        <button id="btnCreate" onclick="location.href='@Url.Action("Create", "Pokemon")';return false;" type="button" class="btn btn-info">Criar Pokémon</button>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-3">
+        <input id="searchString" type="text" class="form-control left">
+    </div>
+    <div class="col-lg-3">
+        <button id="Button1" type="button" class="btn btn-default left">Buscar</button>
+    </div>
+</div>
+<div id="PartialView">
+    @Html.Partial("_PartialList_Pokemons", Model)
+</div>

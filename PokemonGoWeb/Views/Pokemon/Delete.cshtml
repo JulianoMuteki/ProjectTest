@@ -1,0 +1,50 @@
+﻿@model PokemonGOWeb.Models.PokemonViewModel
+@{
+    ViewBag.Title = "Excluir Pokémon";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-3.1.0.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#btnDelete').click(function () {
+         
+            alert('ok');
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("AjaxDelete", "Pokemon")",
+            
+                data: { id: '@Model.Id' },
+                success: function () {
+
+                    alert("success");
+
+                    // Perform redirect
+                    window.location.replace('@Url.Action("Index", "Pokemon")');
+                },
+                error: function (data) {
+                    alert(data.x);
+                }
+            });
+        });
+    });
+</script>
+<h2>Excluir Pokémon</h2>
+
+<form>
+
+    <div class="form-group">
+        <img src="http://assets.pokemon.com/assets/cms2/img/pokedex/detail/025.png" class="img-rounded">
+    </div>
+
+    <div class="form-group">
+        <label>Nome: @Model.Name</label>
+    </div>
+    <div class="form-group">
+        <label>Possui Pokémon: @(Model.CurrentHave ? "sim" : "não")</label>
+    </div>
+    <div class="form-group">
+        <label>Tipo de Pokémon: @Model.PokemonType.Description</label>
+    </div>
+    <button id="btnDelete" type="button" class="btn btn-primary">Excluir</button>
+</form>

@@ -1,0 +1,31 @@
+﻿@model PokemonGOWeb.Models.PokemonViewModel
+@{
+    ViewBag.Title = "Criar Pokémon";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Criar Pokémon</h2>
+
+<form method="post" action="/Pokemon/Create">
+    <div class="form-group">
+        <label>Nome</label>
+        <input type="text" name="Name" id="Name" class="form-control" placeholder="Inserir o nome">
+    </div>
+    <div class="form-group">
+        <label>Imagem</label>
+        <input type="text" name="ImagePath" id="ImagePath" class="form-control" placeholder="Caminho da imagem">
+        <small id="fileHelp" class="form-text text-muted">O caminho da imagem deve ser no padrão "~/Content/images/001.png".</small>
+    </div>
+
+    <div class="form-group">
+        <label for="exampleSelect1">Tipo de Pokémon</label>
+        @*<select class="form-control" name="PokemonTypeId" id="PokemonTypeId">
+            <option value="1">Elétrico</option>
+            <option value="2">Grama</option>
+            <option value="3">Fogo</option>
+        </select>*@
+        @Html.DropDownList("PokemonTypeId", ViewBag.TypesPoke as SelectList, new { @class = "form-control" })
+    </div>
+    <button type="button" class="btn">Voltar</button>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PokemonGOWeb.Models.PokemonViewModel> 
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Imagem</th>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Capturado</th>
+            <th>Excluir</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var poker in Model)
+        {
+            <tr>
+                <td>@poker.Id</td>
+                <td><img src="@poker.ImagePath" style="max-height: 30px;" /></td>
+                <td>@poker.Name</td>
+                <td>@poker.PokemonType.Description</td>
+                <td><span class="glyphicon @(poker.CurrentHave ? "glyphicon-check" : "glyphicon-unchecked")" data-id="@poker.Id" style="cursor:pointer;"></span></td>
+                <td><span class="glyphicon glyphicon-remove" onclick="location.href='@Url.Action("Delete", "Pokemon", new { id = poker.Id })';return true;" style="cursor:pointer;"></span></td>
+            </tr>
+        }
+        @*<tr>
+            <td>1</td>
+            <td><img src="~/Content/images/007.png" style="max-height: 30px;" /></td>
+            <td>Squirtle</td>
+            <td>Água</td>
+            <td><span class="glyphicon glyphicon-unchecked" style="cursor:pointer;"></span></td>
+
+            <td><span class="glyphicon glyphicon-remove" onclick="location.href='@Url.Action("Delete", "Pokemon")'" style="cursor:pointer;"></span></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td><img src="~/Content/images/001.png" style="max-height: 30px;" /></td>
+            <td>Bulbasaur</td>
+            <td>Grama</td>
+            <td><span class="glyphicon glyphicon-check" style="cursor:pointer;"></span></td>
+
+            <td><span class="glyphicon glyphicon-remove" onclick="location.href='@Url.Action("Delete", "Pokemon")'" style="cursor:pointer;"></span></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td><img src="~/Content/images/004.png" style="max-height: 30px;" /></td>
+            <td>Charmander</td>
+            <td>Fogo</td>
+
+            <td><span class="glyphicon glyphicon-unchecked" style="cursor:pointer;"></span></td>
+            <td><span class="glyphicon glyphicon-remove" onclick="location.href='@Url.Action("Delete", "Pokemon")'" style="cursor:pointer;"></span></td>
+        </tr>*@
+    </tbody>
+</table>
